@@ -1,0 +1,93 @@
+requires = [ "tox>=4.30.3", "tox-uv>=1.28" ]
+env_list = [ "fix", "3.14", "3.13", "3.12", "3.11", "type", "pkg_meta" ]
+skip_missing_interpreters = true
+
+[env_run_base]
+description = "run the tests with pytest under {env_name}"
+package = "wheel"
+wheel_build_env = ".pkg"
+dependency_groups = [ "test" ]
+pass_env = [ "PYTEST_*" ]
+set_env.COVERAGE_FILE = { replace = "env", name = "COVERAGE_FILE", default = "{env_tmp_dir}{/}.coverage" }
+set_env.COVERAGE_FILECOVERAGE_PROCESS_START = "{tox_root}{/}pyproject.toml"
+commands = [
+  [
+    "pytest",
+    { replace = "posargs", extend = true, default = [
+      "--no-cov-on-fail",
+      "--cov",
+      "{env_site_packages_dir}{/}mdformat_hugo",
+      "--cov",
+      "{tox_root}{/}tests",
+      "--cov-config",
+      "{tox_root}{/}pyproject.toml",
+      "--cov-context",
+      "test",
+      "--cov-report",
+      "term-missing:skip-covered",
+      "--cov-report",
+      "html:{env_tmp_dir}{/}htmlcov",
+      "tests",
+    ] },
+  ],
+]
+
+[env.fix]
+description = "format the code base to adhere to our styles, and complain about what we cannot do automatically"
+skip_install = true
+dependency_groups = [ "lint" ]
+pass_env = [
+  { replace = "ref", of = [
+    "env_run_base",
+    "pass_env",
+  ], extend = true },
+  "PROGRAMDATA",
+  "DISABLE_PRE_COMMIT_UV_PATCH",
+]
+commands = [ [ "pre-commit", "run", "--all-files", "--show-diff-on-failure", { replace = "posargs", extend = true } ] ]
+
+[env.type]
+package = "editable"
+dependency_groups = [ "type" ]
+description = "Run Python type checker"
+commands = [
+  [
+    "pyright",
+    { replace = "posargs", extend = true, default = [] },
+  ],
+]
+
+[env.pkg_meta]
+description = "check that the long description is valid"
+skip_install = true
+dependency_groups = [ "pkg-meta" ]
+commands = [
+  [
+    "uv",
+    "build",
+    "--sdist",
+    "--wheel",
+    "--out-dir",
+    "{env_tmp_dir}",
+    ".",
+  ],
+  [
+    "twine",
+    "check",
+    "{env_tmp_dir}{/}*",
+  ],
+  [
+    "check-wheel-contents",
+    "--no-config",
+    "{env_tmp_dir}",
+  ],
+]
+
+[env.dev]
+description = "dev environment with all deps at {envdir}"
+package = "editable"
+dependency_groups = [ "dev" ]
+commands = [
+  [ "uv", "pip", "tree" ],
+  [ "python", "-c", "import sys; print(sys.executable)" ],
+]
