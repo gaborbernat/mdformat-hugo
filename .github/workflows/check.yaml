@@ -1,0 +1,76 @@
+name: 🧪 check
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+  pull_request:
+  schedule:
+    - cron: "0 8 * * *"
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    name: 🧪 test ${{ matrix.py }} - ${{ matrix.os }}
+    if: github.event_name != 'schedule' || github.repository_owner == 'gaborbernat'
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        py:
+          - "3.14"
+          - "3.13"
+          - "3.12"
+          - "3.11"
+        os:
+          - ubuntu-24.04
+          - macos-15
+          - windows-2025
+    steps:
+      - name: 🚀 Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: 📥 Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: 📦 Install tox with tox-uv
+        run: uv tool install --managed-python --python 3.14 tox --with tox-uv
+      - name: 🐍 Setup Python for test ${{ matrix.py }}
+        run: uv python install ${{ matrix.py }}
+      - name: 🏗️ Setup test suite
+        run: tox run -vv --notest --skip-missing-interpreters false -e ${{ matrix.py }}
+      - name: 🏃 Run test suite
+        run: tox run --skip-pkg-install -e ${{ matrix.py }}
+        timeout-minutes: 20
+        env:
+          PYTEST_ADDOPTS: "-vv --durations=20"
+          CI_RUN: "yes"
+          DIFF_AGAINST: HEAD
+  check:
+    name: 🔎 check ${{ matrix.tox_env }} - ${{ matrix.os }}
+    if: github.event_name != 'schedule' || github.repository_owner == 'gaborbernat'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        tox_env:
+          - dev
+          - type
+          - pkg_meta
+        os:
+          - ubuntu-24.04
+          - windows-2025
+    steps:
+      - name: 🚀 Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: 📦 Install tox
+        run: uv tool install --python-preference only-managed --python 3.14 tox --with tox-uv
+      - name: 📥 Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: 🏗️ Setup check suite
+        run: tox run -vv --notest --skip-missing-interpreters false -e ${{ matrix.tox_env }}
+      - name: 🏃 Run check for ${{ matrix.tox_env }}
+        run: tox run --skip-pkg-install -e ${{ matrix.tox_env }}

@@ -1,0 +1,154 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = [
+  "hatch-vcs>=0.5",
+  "hatchling>=1.27",
+]
+
+[project]
+name = "mdformat-hugo"
+description = "Mdformat plugin for Hugo-flavored Markdown"
+readme = "README.md"
+keywords = [
+  "formatter",
+  "hugo",
+  "markdown",
+  "mdformat",
+]
+license.file = "LICENSE"
+maintainers = [
+  { name = "Bernát Gábor", email = "gaborjbernat@gmail.com" },
+]
+requires-python = ">=3.11"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dynamic = [
+  "version",
+]
+dependencies = [
+  "markdown-it-py>=3",
+  "mdformat>=0.7.17",
+  "mdformat-config>=0.1.3",
+  "mdformat-deflist>=0.1.2",
+  "mdformat-footnote>=0.1.1",
+  "mdformat-front-matters>=2",
+  "mdformat-gfm>=1",
+  "mdformat-gfm-alerts>=1",
+  "mdformat-pyproject>=0.0.1",
+  "mdformat-ruff>=0.1.3",
+  "mdformat-shfmt>=0.1",
+  "mdformat-web>=0.1",
+  "mdit-py-plugins>=0.4",
+]
+urls.Documentation = "https://mdformat-hugo.readthedocs.io"
+urls.Homepage = "https://github.com/gaborbernat/mdformat-hugo"
+urls.Source = "https://github.com/gaborbernat/mdformat-hugo"
+urls.Tracker = "https://github.com/gaborbernat/mdformat-hugo/issues"
+entry-points."mdformat.parser_extension".hugo = "mdformat_hugo"
+
+[dependency-groups]
+dev = [
+  { include-group = "lint" },
+  { include-group = "pkg-meta" },
+  { include-group = "test" },
+  { include-group = "type" },
+]
+test = [
+  "covdefaults>=2.3",
+  "pytest>=8.4.2",
+  "pytest-cov>=7",
+  "pytest-mock>=3.15.1",
+]
+type = [
+  "pyright>=1.1.406",
+  { include-group = "test" },
+]
+lint = [ "pre-commit-uv>=4.1.5" ]
+pkg-meta = [ "check-wheel-contents>=0.6.3", "twine>=6.2", "uv>=0.8.22" ]
+
+[tool.hatch]
+version.source = "vcs"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+format.preview = true
+format.docstring-code-line-length = 100
+format.docstring-code-format = true
+lint.select = [
+  "ALL",
+]
+lint.ignore = [
+  "ANN401", # allow Any as type annotation
+  "COM812", # Conflict with formatter
+  "CPY",    # No copyright statements
+  "D203",   # `one-blank-line-before-class` (D203) and `no-blank-line-before-class` (D211) are incompatible
+  "D212",   # `multi-line-summary-first-line` (D212) and `multi-line-summary-second-line` (D213) are incompatible
+  "DOC",    # no support
+  "ISC001", # Conflict with formatter
+  "RUF067", # `__init__` module should only contain docstrings and re-exports
+  "S104",   # Possible binding to all interface
+]
+lint.per-file-ignores."tests/**/*.py" = [
+  "D",       # don't care about documentation in tests
+  "FBT",     # don't care about booleans as positional arguments in tests
+  "INP001",  # no implicit namespace
+  "PLC2701", # Private name import
+  "PLR0917", # Too many positional arguments
+  "PLR2004", # Magic value used in comparison, consider replacing with a constant variable
+  "S101",    # asserts allowed in tests
+  "S404",    # `subprocess` module is possibly insecure
+  "S603",    # `subprocess` call: check for execution of untrusted input
+]
+lint.isort = { known-first-party = [
+  "mdformat_hugo",
+], required-imports = [
+  "from __future__ import annotations",
+] }
+lint.preview = true
+
+[tool.codespell]
+builtin = "clear,usage,en-GB_to_en-US"
+count = true
+
+[tool.pytest]
+ini_options.testpaths = [ "tests" ]
+ini_options.verbosity_assertions = 2
+ini_options.filterwarnings = [
+  "error",
+]
+
+[tool.coverage]
+run.parallel = true
+run.plugins = [
+  "covdefaults",
+]
+paths.source = [
+  "src",
+  ".tox*/*/lib/python*/site-packages",
+  ".tox*/pypy*/site-packages",
+  ".tox*\\*\\Lib\\site-packages",
+  "*/src",
+  "*\\src",
+]
+report.fail_under = 100
+html.show_contexts = true
+html.skip_covered = false
+
+[tool.pyright]
+include = [ "src", "tests" ]
+typeCheckingMode = "strict"
+reportUnknownMemberType = false
+executionEnvironments = [ { root = "tests", reportPrivateUsage = false, reportUnknownLambdaType = false } ]
