@@ -58,14 +58,14 @@ Type check:
 tox -e type
 ```
 
-This runs `pyright` in strict mode.
+This runs the `ty` type checker.
 
 ## Code Style
 
 - Use Python 3.11+ features (walrus operators, `TYPE_CHECKING` blocks)
 - Follow existing code patterns
 - All code must pass `ruff` strict linting
-- All code must pass `pyright` strict type checking
+- All code must pass `ty` type checking
 - 100% test coverage required
 
 ## Writing Tests

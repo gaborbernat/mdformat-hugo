@@ -50,12 +50,7 @@ commands = [ [ "pre-commit", "run", "--all-files", "--show-diff-on-failure", { r
 package = "editable"
 dependency_groups = [ "type" ]
 description = "Run Python type checker"
-commands = [
-  [
-    "pyright",
-    { replace = "posargs", extend = true, default = [] },
-  ],
-]
+commands = [ [ "ty", "check", "--output-format", "concise", "--error-on-warning", "." ] ]
 
 [env.pkg_meta]
 description = "check that the long description is valid"
