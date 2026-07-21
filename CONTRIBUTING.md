@@ -24,7 +24,7 @@ This creates a `.tox/dev` virtual environment with all dependencies installed in
 Run all tests across Python versions:
 
 ```bash
-tox -e 3.14,3.13,3.12,3.11
+tox -e 3.15,3.14,3.13,3.12,3.11
 ```
 
 Run tests for a specific Python version:
@@ -100,7 +100,7 @@ Test patterns:
 1. Create a feature branch from `main`
 1. Make your changes
 1. Run `tox -e fix` to format and lint
-1. Run `tox -e 3.14,3.13,3.12,3.11` to verify tests pass
+1. Run `tox -e 3.15,3.14,3.13,3.12,3.11` to verify tests pass
 1. Run `tox -e type` to verify type checking
 1. Commit with a descriptive message following Commitizen format
 1. Push and create a pull request
