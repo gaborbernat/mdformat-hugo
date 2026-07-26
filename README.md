@@ -94,7 +94,8 @@ This plugin bundles support for Hugo markdown features and code block formatting
 
 - [mdformat-gfm](https://github.com/hukkin/mdformat-gfm) - GFM tables, strikethrough, task lists, autolinks
 - [mdformat-front-matters](https://github.com/kyleking/mdformat-front-matters) - TOML/YAML/JSON frontmatter
-- [mdformat-gfm-alerts](https://github.com/KyleKing/mdformat-gfm-alerts) - Blockquote alerts (`[!NOTE]`, `[!WARNING]`)
+- [mdformat-gfm-alerts](https://github.com/KyleKing/mdformat-gfm-alerts) - Blockquote alerts (`[!NOTE]`, `[!WARNING]`), with
+  inline custom titles (`[!NOTE] Title`) always preserved, since Hugo's alert syntax supports them
 - [mdformat-footnote](https://github.com/executablebooks/mdformat-footnote) - Pandoc-style footnotes
 - [mdformat-deflist](https://github.com/executablebooks/mdformat-deflist) - Definition lists
 
