@@ -81,6 +81,34 @@ def test_fence_without_lang() -> None:
     assert outcome == dedent(expected)
 
 
+def test_alert_custom_title_preserved_by_default() -> None:
+    start = "> [!TIP] Upgrade notes\n> Body.\n"
+    outcome = mdformat.text(start, extensions=["hugo", "gfm_alerts"])
+    assert outcome == "> [!TIP] Upgrade notes\n> Body.\n"
+
+
+def test_alert_custom_title_preserved_regardless_of_extension_order() -> None:
+    start = "> [!TIP] Upgrade notes\n> Body.\n"
+    outcome = mdformat.text(start, extensions=["gfm_alerts", "hugo"])
+    assert outcome == "> [!TIP] Upgrade notes\n> Body.\n"
+
+
+def test_alert_custom_title_ignores_explicit_opt_out() -> None:
+    start = "> [!TIP] Upgrade notes\n> Body.\n"
+    outcome = mdformat.text(
+        start,
+        extensions=["hugo", "gfm_alerts"],
+        options={"plugin": {"gfm_alerts": {"custom_title": False}}},
+    )
+    assert outcome == "> [!TIP] Upgrade notes\n> Body.\n"
+
+
+def test_alert_without_gfm_alerts_extension_is_left_untouched() -> None:
+    start = "> [!TIP] Upgrade notes\n> Body.\n"
+    outcome = mdformat.text(start, extensions=["hugo"])
+    assert outcome == start
+
+
 def test_fence_with_backticks_in_code() -> None:
     start = """\
         ```python {.highlight}

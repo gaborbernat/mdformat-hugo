@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from markdown_it import MarkdownIt
     from mdformat.renderer.typing import Render
 
+from ._mdit_plugins.gfm_alerts import enable_gfm_alert_custom_titles
 from ._mdit_plugins.shortcodes import shortcode_plugin
 from ._renderer import render_fence, render_heading, render_hugo_shortcode, render_image
 
@@ -25,6 +26,7 @@ RENDERERS: Final[Mapping[str, Render]] = {
 def update_mdit(mdit: MarkdownIt) -> None:
     """Add Hugo-specific markdown-it-py plugins."""
     mdit.use(shortcode_plugin)
+    enable_gfm_alert_custom_titles(mdit)
 
 
 __all__ = [
