@@ -46,7 +46,7 @@ dependencies = [
   "mdformat-footnote>=0.1.1",
   "mdformat-front-matters>=2",
   "mdformat-gfm>=1",
-  "mdformat-gfm-alerts>=2.1", # custom_title support
+  "mdformat-gfm-alerts>=2.1",
   "mdformat-pyproject>=0.0.1",
   "mdformat-ruff>=0.1.3",
   "mdformat-shfmt>=0.1",
@@ -153,6 +153,3 @@ html.skip_covered = false
 
 [tool.ty]
 environment.python-version = "3.14"
-
-[tool.uv.sources]
-mdformat-gfm-alerts = { path = "../mdformat-gfm-alerts", editable = true }
