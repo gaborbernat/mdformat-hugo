@@ -153,3 +153,6 @@ html.skip_covered = false
 
 [tool.ty]
 environment.python-version = "3.14"
+
+[tool.uv.sources]
+mdformat-gfm-alerts = { path = "../mdformat-gfm-alerts", editable = true }
