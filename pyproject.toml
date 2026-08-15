@@ -135,6 +135,7 @@ ini_options.filterwarnings = [
 ]
 
 [tool.coverage]
+run.core = "ctrace"  # sysmon (3.14+ default) cannot record the dynamic contexts --cov-context needs
 run.parallel = true
 run.plugins = [
   "covdefaults",
