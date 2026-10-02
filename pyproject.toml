@@ -2,7 +2,7 @@
 build-backend = "hatchling.build"
 requires = [
   "hatch-vcs>=0.5",
-  "hatchling>=1.27",
+  "hatchling>=1.32.4",
 ]
 
 [project]
@@ -39,19 +39,19 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  "markdown-it-py>=3",
-  "mdformat>=0.7.17",
-  "mdformat-config>=0.1.3",
-  "mdformat-deflist>=0.1.2",
-  "mdformat-footnote>=0.1.1",
+  "markdown-it-py>=4.2",
+  "mdformat>=1",
+  "mdformat-config>=0.2.1",
+  "mdformat-deflist>=0.1.4",
+  "mdformat-footnote>=0.1.3",
   "mdformat-front-matters>=2",
   "mdformat-gfm>=1",
   "mdformat-gfm-alerts>=2.1",
-  "mdformat-pyproject>=0.0.1",
+  "mdformat-pyproject>=0.1.1",
   "mdformat-ruff>=0.1.3",
-  "mdformat-shfmt>=0.1",
-  "mdformat-web>=0.1",
-  "mdit-py-plugins>=0.4",
+  "mdformat-shfmt>=0.2",
+  "mdformat-web>=0.2",
+  "mdit-py-plugins>=0.6.1",
 ]
 urls.Documentation = "https://mdformat-hugo.readthedocs.io"
 urls.Homepage = "https://github.com/gaborbernat/mdformat-hugo"
@@ -68,16 +68,16 @@ dev = [
 ]
 test = [
   "covdefaults>=2.3",
-  "pytest>=8.4.2",
-  "pytest-cov>=7",
-  "pytest-mock>=3.15.1",
+  "pytest>=9.1.1",
+  "pytest-cov>=7.1",
+  "pytest-mock>=3.16",
 ]
 type = [
-  "ty>=0.0.59",
+  "ty>=0.0.84",
   { include-group = "test" },
 ]
-lint = [ "pre-commit-uv>=4.1.5" ]
-pkg-meta = [ "check-wheel-contents>=0.6.3", "twine>=6.2", "uv>=0.8.22" ]
+lint = [ "pre-commit-uv>=4.3" ]
+pkg-meta = [ "check-wheel-contents>=0.6.3", "twine>=7", "uv>=0.12.22" ]
 
 [tool.hatch]
 version.source = "vcs"
