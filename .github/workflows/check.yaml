@@ -39,6 +39,8 @@ jobs:
           persist-credentials: false
       - name: 🚀 Install uv
         uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          python-version: "3.15"
       - name: 📦 Install tox with tox-uv
         run: uv tool install --managed-python --python 3.15 tox --with tox-uv
       - name: 🐍 Setup Python for test ${{ matrix.py }}
@@ -74,6 +76,8 @@ jobs:
           persist-credentials: false
       - name: 🚀 Install uv
         uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          python-version: "3.15"
       - name: 📦 Install tox
         run: uv tool install --python-preference only-managed --python 3.15 tox --with tox-uv
       - name: 🏗️ Setup check suite
