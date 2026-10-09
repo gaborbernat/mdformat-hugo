@@ -14,7 +14,7 @@ def shortcode_plugin(md: MarkdownIt) -> None:
     md.inline.ruler.before("text", "hugo_shortcode", _shortcode_rule_wrapper)
 
 
-def _shortcode_rule_wrapper(state: StateInline, silent: bool) -> bool:  # noqa: FBT001 - wrapper required by markdown-it-py API signature
+def _shortcode_rule_wrapper(state: StateInline, silent: bool) -> bool:  # ruff: ignore[boolean-type-hint-positional-argument] - wrapper required by markdown-it-py API signature
     """Wrap shortcode rule to convert markdown-it-py boolean to named parameter."""
     return _shortcode_rule(state, should_skip_token_creation=silent)
 

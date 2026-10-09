@@ -1,9 +1,10 @@
 requires = [ "tox>=4.64.7", "tox-uv>=1.36.1" ]
-env_list = [ "fix", "3.15", "3.15t", "3.14", "3.13", "3.12", "3.11", "type", "pkg_meta" ]
+env_list = [ "3.15", "3.14", "3.13", "3.12", "3.11", "3.15t", "fix", "pkg_meta", "type" ]
 skip_missing_interpreters = true
 
 [env_run_base]
 description = "run the tests with pytest under {env_name}"
+default_base_python = [ "3.15" ]
 package = "wheel"
 wheel_build_env = ".pkg"
 dependency_groups = [ "test" ]
@@ -13,7 +14,7 @@ set_env.COVERAGE_FILECOVERAGE_PROCESS_START = "{tox_root}{/}pyproject.toml"
 commands = [
   [
     "pytest",
-    { replace = "posargs", extend = true, default = [
+    { replace = "posargs", default = [
       "--no-cov-on-fail",
       "--cov",
       "{env_site_packages_dir}{/}mdformat_hugo",
@@ -28,9 +29,12 @@ commands = [
       "--cov-report",
       "html:{env_tmp_dir}{/}htmlcov",
       "tests",
-    ] },
+    ], extend = true },
   ],
 ]
+
+[env_pkg_base]
+default_base_python = [ "3.15" ]
 
 [env.fix]
 description = "format the code base to adhere to our styles, and complain about what we cannot do automatically"
@@ -41,16 +45,10 @@ pass_env = [
     "env_run_base",
     "pass_env",
   ], extend = true },
-  "PROGRAMDATA",
   "DISABLE_PRE_COMMIT_UV_PATCH",
+  "PROGRAMDATA",
 ]
 commands = [ [ "pre-commit", "run", "--all-files", "--show-diff-on-failure", { replace = "posargs", extend = true } ] ]
-
-[env.type]
-package = "editable"
-dependency_groups = [ "type" ]
-description = "Run Python type checker"
-commands = [ [ "ty", "check", "--error", "all", "--output-format", "concise", "--error-on-warning", "." ] ]
 
 [env.pkg_meta]
 description = "check that the long description is valid"
@@ -77,6 +75,12 @@ commands = [
     "{env_tmp_dir}",
   ],
 ]
+
+[env.type]
+description = "Run Python type checker"
+package = "editable"
+dependency_groups = [ "type" ]
+commands = [ [ "ty", "check", "--error", "all", "--output-format", "concise", "--error-on-warning", "." ] ]
 
 [env.dev]
 description = "dev environment with all deps at {envdir}"
