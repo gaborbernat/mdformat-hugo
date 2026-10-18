@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## 0.3.1 (2026-10-18)
+
+### Documentation
+
+- Document the release history and require a changelog entry for each pull request. (#35)
+
+
 ## 0.3.0 (2026-07-27)
 
 ### Features
