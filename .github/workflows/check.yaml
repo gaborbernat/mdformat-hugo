@@ -97,7 +97,7 @@ jobs:
         with:
           python-version: "3.15"
           enable-cache: false
-      - run: uvx towncrier check --compare-with "origin/${GITHUB_BASE_REF}"
+      - run: uvx --from towncrier --with release-creator==0.1.1 towncrier check --compare-with "origin/${GITHUB_BASE_REF}"
   gate:
     name: Required checks pass
     if: always()

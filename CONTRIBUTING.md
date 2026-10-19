@@ -99,6 +99,10 @@ Test patterns:
 
 1. Create a feature branch from `main`
 1. Make your changes
+1. Add `changelog.d/+short-name.<type>.md` for a user-facing change. Use `feature`, `change`, `bugfix`, `doc`,
+   `breaking`, `security`, `performance`, `deprecation`, `removal`, or `packaging` as the type. Use `skip news` for
+   changes that do not affect users. The fragment needs no pull request number; release preparation adds its link and
+   author credit after the squash merge.
 1. Run `tox -e fix` to format and lint
 1. Run `tox -e 3.15,3.14,3.13,3.12,3.11` to verify tests pass
 1. Run `tox -e type` to verify type checking
