@@ -2,6 +2,17 @@
 
 <!-- towncrier release notes start -->
 
+<a name="release-0-3-3"></a>
+
+## 0.3.3 (2026-10-19)
+
+<a name="release-0-3-3-documentation"></a>
+
+### Documentation
+
+- Render GitHub release notes with category headings, contributor credits, and comparison links
+  ([#42](https://github.com/gaborbernat/mdformat-hugo/pull/42)).
+
 <a name="release-0-3-2"></a>
 
 ## 0.3.2 (2026-10-19)
