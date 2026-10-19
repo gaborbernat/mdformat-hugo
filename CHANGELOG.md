@@ -11,7 +11,7 @@
 ### Documentation
 
 - Render GitHub release notes with category headings, contributor credits, and comparison links
-  ([#42](https://github.com/gaborbernat/mdformat-hugo/pull/42)).
+  ([#42](https://github.com/gaborbernat/mdformat-hugo/pull/42)) by [@gaborbernat](https://github.com/gaborbernat).
 
 <a name="release-0-3-2"></a>
 
