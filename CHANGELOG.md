@@ -50,9 +50,9 @@
 
 ## 0.2.0 (2026-07-20)
 
-<a name="release-0-2-0-changes"></a>
+<a name="release-0-2-0-changes"></a> <a name="release-0-2-0-added"></a>
 
-### Changes
+### Added
 
 - Declare and test Python 3.15 compatibility ([#22](https://github.com/gaborbernat/mdformat-hugo/pull/22)) by
   [@gaborbernat](https://github.com/gaborbernat).
