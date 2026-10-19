@@ -14,16 +14,3 @@ updates:
         patterns: ["*"]
     cooldown:
       default-days: 7
-  - package-ecosystem: "pre-commit"
-    directory: "/"
-    labels:
-      - dependencies
-      - skip news
-    schedule:
-      interval: "weekly"
-      day: "tuesday"
-    groups:
-      pre-commit:
-        patterns: ["*"]
-    cooldown:
-      default-days: 7
