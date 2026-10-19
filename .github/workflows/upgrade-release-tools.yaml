@@ -37,7 +37,7 @@ jobs:
         run: |
           set -euo pipefail
           uvx prek run --all-files
-          unexpected=$(git status --short --untracked-files=all | awk 'substr($0, 4) != "pylock.toml"')
+          unexpected=$(git status --porcelain=v1 --untracked-files=all | awk 'substr($0, 4) != "pylock.toml"')
           if [[ -n "$unexpected" ]]; then
             echo "::error::prek changed files outside pylock.toml"
             echo "$unexpected"
