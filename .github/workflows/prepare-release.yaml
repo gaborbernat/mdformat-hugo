@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-26.04
     permissions:
       contents: read
+      pull-requests: read
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
@@ -50,11 +51,12 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
       - name: Build release patch
         env:
+          GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.version.outputs.version }}
         run: |
           set -euo pipefail
           git tag --list | release-creator tags "$VERSION" --require-newer
-          release-creator fragments --repository "$GITHUB_REPOSITORY" --git
+          release-creator fragments --repository "$GITHUB_REPOSITORY" --git --resolve-authors
           towncrier build --yes --version "$VERSION"
           uvx --from mdformat --with . mdformat --wrap 120 CHANGELOG.md
           uvx prek run --all-files
