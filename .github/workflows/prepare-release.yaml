@@ -34,13 +34,18 @@ jobs:
         with:
           python-version: "3.15"
           enable-cache: false
+      - name: 📦 Install locked release tools
+        run: |
+          uv venv --python 3.15 "$RUNNER_TEMP/release-tools"
+          uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
+          echo "$RUNNER_TEMP/release-tools/bin" >> "$GITHUB_PATH"
       - name: Calculate next version
         id: version
         env:
           BUMP: ${{ inputs.bump }}
         run: |
           set -euo pipefail
-          version=$(git tag --list | uvx --from release-creator==0.1.1 release-creator tags --next "$BUMP")
+          version=$(git tag --list | release-creator tags --next "$BUMP")
           echo "Next version: $version"
           echo "version=$version" >> "$GITHUB_OUTPUT"
       - name: Build release patch
@@ -48,9 +53,9 @@ jobs:
           VERSION: ${{ steps.version.outputs.version }}
         run: |
           set -euo pipefail
-          git tag --list | uvx --from release-creator==0.1.1 release-creator tags "$VERSION" --require-newer
-          uvx --from release-creator==0.1.1 release-creator fragments --repository "$GITHUB_REPOSITORY" --git
-          uvx --from towncrier --with release-creator==0.1.1 towncrier build --yes --version "$VERSION"
+          git tag --list | release-creator tags "$VERSION" --require-newer
+          release-creator fragments --repository "$GITHUB_REPOSITORY" --git
+          towncrier build --yes --version "$VERSION"
           uvx --from mdformat --with . mdformat --wrap 120 CHANGELOG.md
           uvx prek run --all-files
           git diff HEAD --binary > "$RUNNER_TEMP/release.patch"

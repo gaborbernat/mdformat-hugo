@@ -21,11 +21,16 @@ jobs:
           python-version: "3.15"
           cache-dependency-glob: "pyproject.toml"
           enable-cache: false
+      - name: 📦 Install locked release tools
+        run: |
+          uv venv --python 3.15 "$RUNNER_TEMP/release-tools"
+          uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
+          echo "$RUNNER_TEMP/release-tools/bin" >> "$GITHUB_PATH"
       - name: Require a changelog section for the tag
         env:
           TAG: ${{ github.ref_name }}
         run: |
-          uvx --from release-creator==0.1.1 release-creator tags "$TAG"
+          release-creator tags "$TAG"
           if ! grep -qF "## $TAG (" CHANGELOG.md; then
             echo "::error::CHANGELOG.md has no section for $TAG"
             exit 1
@@ -70,17 +75,22 @@ jobs:
         with:
           python-version: "3.15"
           enable-cache: false
+      - name: 📦 Install locked release tools
+        run: |
+          uv venv --python 3.15 "$RUNNER_TEMP/release-tools"
+          uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
+          echo "$RUNNER_TEMP/release-tools/bin" >> "$GITHUB_PATH"
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.ref_name }}
         run: |
           set -euo pipefail
-          previous=$(git tag --list | uvx --from release-creator==0.1.1 release-creator tags "$TAG" --previous)
+          previous=$(git tag --list | release-creator tags "$TAG" --previous)
           args=()
           if [[ -n "$previous" ]]; then
             args+=(--previous "$previous")
           fi
           gh api -X POST "repos/${GITHUB_REPOSITORY}/releases/generate-notes" -f tag_name="$TAG" --jq .body > "$RUNNER_TEMP/generated-notes.md"
-          uvx --from release-creator==0.1.1 release-creator notes --changelog CHANGELOG.md --tag "$TAG" --repository "$GITHUB_REPOSITORY" --artifact-url "https://pypi.org/project/mdformat-hugo/${TAG}/" --generated-notes "$RUNNER_TEMP/generated-notes.md" "${args[@]}" > "$RUNNER_TEMP/release-notes.md"
+          release-creator notes --changelog CHANGELOG.md --tag "$TAG" --repository "$GITHUB_REPOSITORY" --artifact-url "https://pypi.org/project/mdformat-hugo/${TAG}/" --generated-notes "$RUNNER_TEMP/generated-notes.md" "${args[@]}" > "$RUNNER_TEMP/release-notes.md"
           gh release create "$TAG" --verify-tag --title "v$TAG" --notes-file "$RUNNER_TEMP/release-notes.md"
