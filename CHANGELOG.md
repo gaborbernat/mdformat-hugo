@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## 0.3.2 (2026-10-19)
+
+### Documentation
+
+- Publish a GitHub Release alongside each PyPI release, with notes and a comparison to the previous version. (#41)
+
+
 ## 0.3.1 (2026-10-18)
 
 ### Documentation
