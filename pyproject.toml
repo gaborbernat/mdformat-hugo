@@ -8,6 +8,7 @@ requires = [
 
 [project]
 name = "mdformat-hugo"
+import-names = [ "mdformat_hugo" ]
 description = "Mdformat plugin for Hugo-flavored Markdown"
 keywords = [
   "formatter",
@@ -15,7 +16,8 @@ keywords = [
   "markdown",
   "mdformat",
 ]
-license.file = "LICENSE"
+license = "MIT"
+license-files = [ "LICENSE" ]
 maintainers = [
   { name = "Bernát Gábor", email = "gaborjbernat@gmail.com" },
 ]
@@ -23,7 +25,6 @@ requires-python = ">=3.11"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3 :: Only",
@@ -54,7 +55,7 @@ dependencies = [
   "mdformat-web>=0.2",
   "mdit-py-plugins>=0.6.1",
 ]
-urls.Documentation = "https://mdformat-hugo.readthedocs.io"
+urls.Changelog = "https://github.com/gaborbernat/mdformat-hugo/blob/main/CHANGELOG.md"
 urls.Homepage = "https://github.com/gaborbernat/mdformat-hugo"
 urls.Source = "https://github.com/gaborbernat/mdformat-hugo"
 urls.Tracker = "https://github.com/gaborbernat/mdformat-hugo/issues"
