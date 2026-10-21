@@ -41,6 +41,7 @@ jobs:
       - name: 🚀 Install uv
         uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
         with:
+          version: latest-known
           python-version: "3.15"
       - name: 📦 Install tox with tox-uv
         run: uv tool install --managed-python --python 3.15 tox --with tox-uv
@@ -78,6 +79,7 @@ jobs:
       - name: 🚀 Install uv
         uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
         with:
+          version: latest-known
           python-version: "3.15"
       - name: 📦 Install tox
         run: uv tool install --python-preference only-managed --python 3.15 tox --with tox-uv
@@ -95,6 +97,7 @@ jobs:
           persist-credentials: false
       - uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
         with:
+          version: latest-known
           python-version: "3.15"
           enable-cache: false
       - name: 📦 Install locked release tools
@@ -102,21 +105,17 @@ jobs:
           uv venv --python 3.15 "$RUNNER_TEMP/release-tools"
           uv pip sync --preview-features pylock --python "$RUNNER_TEMP/release-tools/bin/python" --group release pylock.toml
           echo "$RUNNER_TEMP/release-tools/bin" >> "$GITHUB_PATH"
-      - uses: tox-dev/github-workflows/validate-news@d88002302950ed36200e62673f592acc40e6b151
+      - name: Run repository hooks
+        run: prek run --all-files
+      - uses: tox-dev/github-workflows/validate-news@a250ca3524857236e288764651851010939b6f71
   gate:
     name: Required checks pass
     if: always()
     needs: [test, check, changelog]
     runs-on: ubuntu-24.04
+    permissions: {}
     steps:
-      - env:
-          NEEDS_JSON: ${{ toJSON(needs) }}
-          EVENT_NAME: ${{ github.event_name }}
-        run: |
-          jq -e --arg event "$EVENT_NAME" '
-            all(
-              to_entries[];
-              .value.result == "success" or
-              (.key == "changelog" and .value.result == "skipped" and $event != "pull_request")
-            )
-          ' <<< "$NEEDS_JSON"
+      - uses: re-actors/alls-green@b5b5b37504aa4183270bd3d855c52a67f212be35 # v1.3.0
+        with:
+          allowed-skips: ${{ github.event_name != 'pull_request' && 'changelog' || '' }}
+          jobs: ${{ toJSON(needs) }}

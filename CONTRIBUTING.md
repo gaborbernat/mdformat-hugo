@@ -119,7 +119,13 @@ fragment still has to be valid when the label is present. Dependabot, pre-commit
 the label when their pull request has no fragment.
 
 The release workflow credits the pull request author. If several people authored the change, add their linked GitHub
-handles in one `by` phrase in the fragment. Omit bots and reviewers.
+handles in one `by` phrase in the fragment, including the PR author:
+
+```markdown
+Preserve nested callout titles by [@alice](https://github.com/alice) and [@bob](https://github.com/bob).
+```
+
+Omit bots and reviewers.
 
 ## Pull Request Process
 
