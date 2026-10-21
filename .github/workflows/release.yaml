@@ -145,4 +145,8 @@ jobs:
           GH_REPO: ${{ github.repository }}
           TAG: ${{ github.ref_name }}
         run: |
-          gh release create "$TAG" --verify-tag --title "v$TAG" --notes-file "$RUNNER_TEMP/release-notes/release-notes.md"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release edit "$TAG" --notes-file "$RUNNER_TEMP/release-notes/release-notes.md"
+          else
+            gh release create "$TAG" --verify-tag --title "v$TAG" --notes-file "$RUNNER_TEMP/release-notes/release-notes.md"
+          fi
