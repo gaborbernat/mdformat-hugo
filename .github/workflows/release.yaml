@@ -157,7 +157,7 @@ jobs:
           TAG: ${{ github.ref_name }}
         run: |
           set -euo pipefail
-          echo "tag=$(git tag --list | release-creator tags "$TAG" --previous)" >> "$GITHUB_OUTPUT"
+          echo "tag=$(git tag --list | release-creator tags "$TAG" --previous)" >>"$GITHUB_OUTPUT"
   contributor_metadata:
     needs: previous_tag
     runs-on: ubuntu-26.04
@@ -175,11 +175,11 @@ jobs:
             gh api -X POST "repos/${GITHUB_REPOSITORY}/releases/generate-notes" \
               -f tag_name="$TAG" \
               -f previous_tag_name="$PREVIOUS" \
-              --jq .body > "$RUNNER_TEMP/generated-notes.md"
+              --jq .body >"$RUNNER_TEMP/generated-notes.md"
           else
             gh api -X POST "repos/${GITHUB_REPOSITORY}/releases/generate-notes" \
               -f tag_name="$TAG" \
-              --jq .body > "$RUNNER_TEMP/generated-notes.md"
+              --jq .body >"$RUNNER_TEMP/generated-notes.md"
           fi
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
