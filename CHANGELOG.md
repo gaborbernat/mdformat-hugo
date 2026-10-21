@@ -4,36 +4,35 @@
 
 <a name="release-0-3-3"></a>
 
-## 0.3.3 (2026-10-19)
-
 <a name="release-0-3-3-documentation"></a>
 
-### Documentation
+## 0.3.3 (2026-10-19)
+
+<a name="release-0-3-3-packaging"></a>
+
+### Packaging
 
 - Render GitHub release notes with category headings, contributor credits, and comparison links
   ([#42](https://github.com/gaborbernat/mdformat-hugo/pull/42)) by [@gaborbernat](https://github.com/gaborbernat).
 
 <a name="release-0-3-2"></a>
 
-## 0.3.2 (2026-10-19)
-
 <a name="release-0-3-2-documentation"></a>
 
-### Documentation
+## 0.3.2 (2026-10-19)
+
+<a name="release-0-3-2-packaging"></a>
+
+### Packaging
 
 - Publish a GitHub Release alongside each PyPI release, with notes and a comparison to the previous version
   ([#41](https://github.com/gaborbernat/mdformat-hugo/pull/41)) by [@gaborbernat](https://github.com/gaborbernat).
 
 <a name="release-0-3-1"></a>
 
-## 0.3.1 (2026-10-18)
-
 <a name="release-0-3-1-documentation"></a>
 
-### Documentation
-
-- Document the release history and require a changelog entry for each pull request
-  ([#35](https://github.com/gaborbernat/mdformat-hugo/pull/35)) by [@gaborbernat](https://github.com/gaborbernat).
+## 0.3.1 (2026-10-18)
 
 <a name="release-0-3-0"></a>
 
@@ -54,7 +53,7 @@
 
 ### Added
 
-- Declare and test Python 3.15 compatibility ([#22](https://github.com/gaborbernat/mdformat-hugo/pull/22)) by
+- Add Python 3.15 support ([#22](https://github.com/gaborbernat/mdformat-hugo/pull/22)) by
   [@gaborbernat](https://github.com/gaborbernat).
 
 <a name="release-0-1-0"></a>
