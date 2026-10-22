@@ -4,11 +4,9 @@
 
 <a name="release-0-3-3"></a>
 
-<a name="release-0-3-3-documentation"></a>
-
 ## 0.3.3 (2026-10-19)
 
-<a name="release-0-3-3-packaging"></a>
+<a name="release-0-3-3-documentation"></a> <a name="release-0-3-3-packaging"></a>
 
 ### Packaging
 
@@ -17,11 +15,9 @@
 
 <a name="release-0-3-2"></a>
 
-<a name="release-0-3-2-documentation"></a>
-
 ## 0.3.2 (2026-10-19)
 
-<a name="release-0-3-2-packaging"></a>
+<a name="release-0-3-2-documentation"></a> <a name="release-0-3-2-packaging"></a>
 
 ### Packaging
 
