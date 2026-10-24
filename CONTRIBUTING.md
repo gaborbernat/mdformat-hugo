@@ -95,14 +95,43 @@ Test patterns:
 - Use `dedent()` at usage point, not at variable assignment
 - Test both valid input and edge cases
 
+## Release notes
+
+Add a `changelog.d/+short-name.<type>.md` fragment when a pull request changes what package users can use or observe.
+Use one fragment per user-facing change; the name can describe the change before a pull request number exists. The
+release workflow links each fragment to its merged squash pull request.
+
+| Type          | Changelog section | Use for                                                    |
+| ------------- | ----------------- | ---------------------------------------------------------- |
+| `feature`     | Added             | New capabilities and Python support additions or removals  |
+| `change`      | Changes           | Changed behavior that remains available                    |
+| `bugfix`      | Fixed             | Corrected behavior                                         |
+| `doc`         | Documentation     | Documentation changes users need to know about             |
+| `breaking`    | Breaking changes  | Changes that require users to update code or configuration |
+| `security`    | Security          | Security fixes users need to act on                        |
+| `performance` | Performance       | User-visible speed or resource improvements                |
+| `deprecation` | Deprecated        | Supported behavior scheduled for removal                   |
+| `removal`     | Removed           | Removed user-facing capabilities other than Python support |
+| `packaging`   | Packaging         | Install, wheel, or distribution changes                    |
+
+Use `skip news` for a pull request with no user-facing change. The label can be applied after the pull request opens. A
+fragment still has to be valid when the label is present. Dependabot, pre-commit.ci, and repository automation receive
+the label when their pull request has no fragment.
+
+The release workflow credits the pull request author. If several people authored the change, add their linked GitHub
+handles in one `by` phrase in the fragment, including the PR author:
+
+```markdown
+Preserve nested callout titles by [@alice](https://github.com/alice) and [@bob](https://github.com/bob).
+```
+
+Omit bots and reviewers.
+
 ## Pull Request Process
 
 1. Create a feature branch from `main`
 1. Make your changes
-1. Add `changelog.d/+short-name.<type>.md` for a user-facing change. Use `feature`, `change`, `bugfix`, `doc`,
-   `breaking`, `security`, `performance`, `deprecation`, `removal`, or `packaging` as the type. Use `skip news` for
-   changes that do not affect users. The fragment needs no pull request number; release preparation adds its link and
-   author credit after the squash merge.
+1. Add a changelog fragment for a user-facing change, or apply `skip news` for internal maintenance
 1. Run `tox -e fix` to format and lint
 1. Run `tox -e 3.15,3.14,3.13,3.12,3.11` to verify tests pass
 1. Run `tox -e type` to verify type checking

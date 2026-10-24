@@ -7,9 +7,7 @@
 Mdformat plugin for Hugo-flavored Markdown. Formats Hugo content files while preserving shortcodes and markdown
 attributes.
 
-See the [changelog](CHANGELOG.md) for released changes. Pull requests with user-facing changes need a
-`changelog.d/+short-name.<type>.md` fragment. Use the `skip news` label for changes that do not affect users. The
-release process links named fragments to their merged pull requests.
+See the [changelog](CHANGELOG.md) for released changes and [contributing guide](CONTRIBUTING.md) for fragment rules.
 
 ## Features
 
