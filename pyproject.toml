@@ -1,21 +1,23 @@
 [build-system]
 build-backend = "hatchling.build"
 requires = [
+  "hatch-fancy-pypi-readme>=25.1",
   "hatch-vcs>=0.5",
   "hatchling>=1.32.4",
 ]
 
 [project]
 name = "mdformat-hugo"
+import-names = [ "mdformat_hugo" ]
 description = "Mdformat plugin for Hugo-flavored Markdown"
-readme = "README.md"
 keywords = [
   "formatter",
   "hugo",
   "markdown",
   "mdformat",
 ]
-license.file = "LICENSE"
+license = "MIT"
+license-files = [ "LICENSE" ]
 maintainers = [
   { name = "Bernát Gábor", email = "gaborjbernat@gmail.com" },
 ]
@@ -23,7 +25,6 @@ requires-python = ">=3.11"
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3 :: Only",
@@ -36,6 +37,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dynamic = [
+  "readme",
   "version",
 ]
 dependencies = [
@@ -53,7 +55,7 @@ dependencies = [
   "mdformat-web>=0.2",
   "mdit-py-plugins>=0.6.1",
 ]
-urls.Documentation = "https://mdformat-hugo.readthedocs.io"
+urls.Changelog = "https://github.com/gaborbernat/mdformat-hugo/blob/main/CHANGELOG.md"
 urls.Homepage = "https://github.com/gaborbernat/mdformat-hugo"
 urls.Source = "https://github.com/gaborbernat/mdformat-hugo"
 urls.Tracker = "https://github.com/gaborbernat/mdformat-hugo/issues"
@@ -76,12 +78,39 @@ type = [
   "ty>=0.0.84",
   { include-group = "test" },
 ]
+build = [
+  "cython>=3",
+  "hatch-fancy-pypi-readme>=25.1",
+  "hatch-vcs>=0.5",
+  "hatchling>=1.32.4",
+  "setuptools>=80",
+]
 lint = [ "pre-commit-uv>=4.3" ]
 pkg-meta = [ "check-wheel-contents>=0.6.3", "twine>=7", "uv>=0.12.22" ]
-release = [ "release-creator>=0.2", "towncrier>=26.9" ]
+release-notes = [
+  "release-creator>=4.1",
+]
+release-prepare = [
+  "prek>=0.5",
+  "release-creator>=4.1",
+  "towncrier>=26.9",
+]
 
 [tool.hatch]
 version.source = "vcs"
+metadata.hooks.fancy-pypi-readme.content-type = "text/markdown"
+metadata.hooks.fancy-pypi-readme.fragments = [ { path = "README.md" } ]
+metadata.hooks.fancy-pypi-readme.substitutions = [
+  { pattern = '''(?x)
+    (?<!!)\[(?P<label>[^\]]+)\]\(  # Link text, excluding image syntax
+    (?P<path>(?!https?://|\#|mailto:)[^)]+) # Relative path
+    \)
+    ''', replacement = '[\g<label>](https://github.com/gaborbernat/mdformat-hugo/blob/main/\g<path>)' },
+]
+
+[tool.uv]
+dependency-groups.release-notes = { requires-python = ">=3.15" }
+dependency-groups.release-prepare = { requires-python = ">=3.15" }
 
 [tool.ruff]
 target-version = "py311"
@@ -174,3 +203,13 @@ type = [
   { directory = "removal", name = "Removed", showcontent = true },
   { directory = "packaging", name = "Packaging", showcontent = true },
 ]
+
+[tool.nab]
+mode = "universal"
+base-group = "project-runtime"
+uploaded-prior-to = "P7D"
+decision-order = "stable"
+matrix.python = ">=3.15,<3.16"
+matrix.platforms = [ "linux_x86_64" ]
+# temporary, delete after 2026-11-02
+packages.release-creator.uploaded-prior-to = 2026-10-26T18:24:46Z

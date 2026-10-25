@@ -3,6 +3,7 @@
 .coverage
 .pytest_cache/
 .tox/
+/uv.lock
 __pycache__/
 build/
 dist/
