@@ -2,6 +2,17 @@
 
 <!-- towncrier release notes start -->
 
+<a name="release-0-3-4"></a>
+
+## 0.3.4 (2026-10-27)
+
+<a name="release-0-3-4-fixed"></a>
+
+### Fixed
+
+- Make the changelog and contributing links on PyPI open their repository files
+  ([#44](https://github.com/gaborbernat/mdformat-hugo/pull/44)) by [@gaborbernat](https://github.com/gaborbernat).
+
 <a name="release-0-3-3"></a>
 
 ## 0.3.3 (2026-10-19)
