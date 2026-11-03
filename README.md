@@ -3,6 +3,8 @@
 [![PyPI](https://img.shields.io/pypi/v/mdformat-hugo?style=flat-square)](https://pypi.org/project/mdformat-hugo/)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/mdformat-hugo.svg)](https://pypi.org/project/mdformat-hugo/)
 [![check](https://github.com/gaborbernat/mdformat-hugo/actions/workflows/check.yaml/badge.svg)](https://github.com/gaborbernat/mdformat-hugo/actions/workflows/check.yaml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/gaborbernat/mdformat-hugo/badge)](https://scorecard.dev/viewer/?uri=github.com/gaborbernat/mdformat-hugo)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/16278/badge)](https://www.bestpractices.dev/projects/16278)
 
 Mdformat plugin for Hugo-flavored Markdown. Formats Hugo content files while preserving shortcodes and markdown
 attributes.
