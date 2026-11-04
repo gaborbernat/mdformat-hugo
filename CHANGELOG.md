@@ -2,6 +2,10 @@
 
 <!-- towncrier release notes start -->
 
+<a name="release-0-3-5"></a>
+
+## 0.3.5 (2026-11-04)
+
 <a name="release-0-3-4"></a>
 
 ## 0.3.4 (2026-10-27)
