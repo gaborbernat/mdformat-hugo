@@ -48,10 +48,18 @@ jobs:
           {"env": "pkg_meta"},
           {"env": "pkg_meta", "os": "windows-2025"}
         ]
+  release:
+    name: 🏷️ Release dry run
+    uses: ./.github/workflows/prepare-release.yaml # zizmor: ignore[self-repository] actionlint rejects the $/ form
+    permissions:
+      contents: read
+      pull-requests: read
+    with:
+      dry-run: true
   gate:
     name: 🚦 ${{ github.event_name == 'pull_request' && 'Required checks pass' || 'Non-PR checks pass' }}
     if: ${{ !cancelled() }} # codespell:ignore cancelled
-    needs: [test]
+    needs: [test, release]
     runs-on: ubuntu-24.04
     permissions: {}
     steps:
