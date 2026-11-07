@@ -8,9 +8,9 @@ from typing import TYPE_CHECKING, Final
 if TYPE_CHECKING:
     from mdformat.renderer import RenderContext, RenderTreeNode
 
-_FENCE_ATTRS_PATTERN: Final = re.compile(r"^(\S+)\s+\{([^}]+)\}$")
-_INLINE_ATTRS_PATTERN: Final = re.compile(r"^(.*?)\s*\{([^}]+)\}\s*$")
-_ATTR_PATTERN: Final = re.compile(r'\.([^\s{}=]+)|#([^\s{}=]+)|([^\s{}=]+)=(?:"([^"]*)"|([^\s{}]+))')
+_FENCE_ATTRS_PATTERN: Final[re.Pattern[str]] = re.compile(r"^(\S+)\s+\{([^}]+)\}$")
+_INLINE_ATTRS_PATTERN: Final[re.Pattern[str]] = re.compile(r"^(.*?)\s*\{([^}]+)\}\s*$")
+_ATTR_PATTERN: Final[re.Pattern[str]] = re.compile(r'\.([^\s{}=]+)|#([^\s{}=]+)|([^\s{}=]+)=(?:"([^"]*)"|([^\s{}]+))')
 
 
 def render_hugo_shortcode(node: RenderTreeNode, _context: RenderContext) -> str:
