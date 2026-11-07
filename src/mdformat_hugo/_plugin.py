@@ -14,7 +14,9 @@ from ._mdit_plugins.gfm_alerts import enable_gfm_alert_custom_titles
 from ._mdit_plugins.shortcodes import shortcode_plugin
 from ._renderer import render_fence, render_heading, render_hugo_shortcode, render_image
 
+#: The formatting changes the Markdown AST, so mdformat's --validate must skip its AST comparison.
 CHANGES_AST: Final[bool] = True
+#: Renderers that override mdformat's defaults, keyed by markdown-it token type.
 RENDERERS: Final[Mapping[str, Render]] = {
     "hugo_shortcode": render_hugo_shortcode,
     "heading": render_heading,
