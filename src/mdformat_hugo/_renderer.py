@@ -80,8 +80,8 @@ def render_fence(node: RenderTreeNode, _context: RenderContext) -> str:
 def _longest_consecutive_sequence(text: str, char: str) -> int:
     # Find longest consecutive sequence of char in text.
     longest = current = 0
-    for c in text:
-        current = current + 1 if c == char else 0
+    for symbol in text:
+        current = current + 1 if symbol == char else 0
         longest = max(longest, current)
     return longest
 
