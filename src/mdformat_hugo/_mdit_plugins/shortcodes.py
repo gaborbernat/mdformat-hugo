@@ -10,7 +10,6 @@ if TYPE_CHECKING:
 
 
 def shortcode_plugin(md: MarkdownIt) -> None:
-    # Plugin to parse and format Hugo shortcodes uniformly.
     md.inline.ruler.before("text", "hugo_shortcode", _shortcode_rule_wrapper)
 
 
