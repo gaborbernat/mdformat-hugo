@@ -32,7 +32,7 @@ def _shortcode_rule(state: StateInline, *, should_skip_token_creation: bool) -> 
     pos = content_start
     while pos < state.posMax:
         if state.src[pos : pos + 3] == close_marker:
-            if not should_skip_token_creation:  # pragma: no branch
+            if not should_skip_token_creation:
                 _create_shortcode_token(state, content_start, pos, is_percent=is_percent)
             state.pos = pos + 3
             return True
