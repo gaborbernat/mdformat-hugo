@@ -1,3 +1,5 @@
+# prek runs lower priorities first and equal ones concurrently, so hooks sharing a priority never write the same
+# file; pre-commit ignores the key and runs hooks in file order.
 ci:
   autoupdate_schedule: quarterly
 default_language_version:
@@ -7,40 +9,61 @@ repos:
     rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # frozen: v6.0.0
     hooks:
       - id: end-of-file-fixer
+        priority: 0
       - id: trailing-whitespace
+        priority: 1
       - id: file-contents-sorter
+        priority: 2
         files: "^.gitignore$"
       - id: check-case-conflict
+        priority: 6
       - id: check-added-large-files
+        priority: 6
   - repo: https://github.com/rhysd/actionlint
     rev: "914e7df21a07ef503a81201c76d2b11c789d3fca" # frozen: v1.7.12
     hooks:
       - id: actionlint
+        priority: 6
   - repo: https://github.com/codespell-project/codespell
     rev: 57b21406f092110c18776e39b0bda50d37c945c8 # frozen: v2.4.3
     hooks:
       - id: codespell
+        priority: 6
   - repo: https://github.com/tox-dev/tox-toml-fmt
     rev: "5125f601c3e134347288c3d42f3b34298b7cf1be" # frozen: v1.11.1
     hooks:
       - id: tox-toml-fmt
+        priority: 2
   - repo: https://github.com/tox-dev/pyproject-fmt
     rev: "50e0f3aee9dc5747a5f173f79a7417403c18dda6" # frozen: v2.30.3
     hooks:
       - id: pyproject-fmt
+        priority: 2
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: "25bcf95026b96e2dd3c0aec3090c3d6ef6ca2e6c" # frozen: v0.17.3
+    hooks:
+      - id: ruff-check
+        priority: 3
+        args: ["--fix", "--unsafe-fixes", "--exit-non-zero-on-fix"]
+  - repo: https://github.com/gaborbernat/simplint-pre-commit
+    rev: "c8719dca99c13381570bc69f8955c9448fc271b7" # frozen: v0.7.1
+    hooks:
+      - id: simplint
+        priority: 4
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: "25bcf95026b96e2dd3c0aec3090c3d6ef6ca2e6c" # frozen: v0.17.3
     hooks:
       - id: ruff-format
-      - id: ruff-check
-        args: ["--fix", "--unsafe-fixes", "--exit-non-zero-on-fix"]
+        priority: 5
   - repo: https://github.com/google/yamlfmt
     rev: "21ca5323a9c87ee37a434e0ca908efc0a89daa07" # frozen: v0.21.0
     hooks:
       - id: yamlfmt
+        priority: 2
   - repo: local
     hooks:
       - id: mdformat
+        priority: 2
         name: mdformat
         entry: uvx --from mdformat --with . mdformat --wrap 120
         language: system
@@ -49,7 +72,10 @@ repos:
     rev: c92afdf2c6ca336aaa8f39e2bd8d48f62dbd8e1f # frozen: v1.31.1
     hooks:
       - id: zizmor
+        priority: 6
   - repo: meta
     hooks:
       - id: check-hooks-apply
+        priority: 6
       - id: check-useless-excludes
+        priority: 6
