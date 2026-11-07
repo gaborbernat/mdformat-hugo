@@ -21,8 +21,7 @@ def test_shortcode_edge_cases(text: str) -> None:
 
 
 def test_shortcode_too_short() -> None:
-    start = "{{<\n"
-    outcome = mdformat.text(start, extensions=["hugo"])
+    outcome = mdformat.text("{{<\n", extensions=["hugo"])
     expected = "{{\\<\n"
     assert outcome == expected
 
@@ -50,3 +49,8 @@ def test_shortcode_in_list() -> None:
         """
     outcome = mdformat.text(dedent(start), extensions=["hugo"])
     assert outcome == dedent(start)
+
+
+def test_shortcode_in_link_text() -> None:
+    outcome = mdformat.text("[{{< ref page.md >}}](url)\n", extensions=["hugo"])
+    assert outcome == "[{{< ref page.md >}}](url)\n"
