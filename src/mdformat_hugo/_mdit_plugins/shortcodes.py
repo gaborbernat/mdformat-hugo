@@ -10,17 +10,17 @@ if TYPE_CHECKING:
 
 
 def shortcode_plugin(md: MarkdownIt) -> None:
-    """Plugin to parse and format Hugo shortcodes uniformly."""
+    # Plugin to parse and format Hugo shortcodes uniformly.
     md.inline.ruler.before("text", "hugo_shortcode", _shortcode_rule_wrapper)
 
 
 def _shortcode_rule_wrapper(state: StateInline, silent: bool) -> bool:  # ruff: ignore[boolean-type-hint-positional-argument] - wrapper required by markdown-it-py API signature
-    """Wrap shortcode rule to convert markdown-it-py boolean to named parameter."""
+    # Wrap shortcode rule to convert markdown-it-py boolean to named parameter.
     return _shortcode_rule(state, should_skip_token_creation=silent)
 
 
 def _shortcode_rule(state: StateInline, *, should_skip_token_creation: bool) -> bool:
-    """Parse Hugo shortcodes: {{< shortcode >}} and {{% shortcode %}}."""
+    # Parse Hugo shortcodes: {{< shortcode >}} and {{% shortcode %}}.
     pos = state.pos
     if pos + 3 >= state.posMax or state.src[pos : pos + 3] not in {"{{<", "{{%"}:
         return False
@@ -41,7 +41,6 @@ def _shortcode_rule(state: StateInline, *, should_skip_token_creation: bool) -> 
 
 
 def _create_shortcode_token(state: StateInline, content_start: int, pos: int, *, is_percent: bool) -> None:
-    """Create a Hugo shortcode token."""
     token = state.push("hugo_shortcode", "", 0)
     token.content = state.src[content_start:pos].strip()
     token.markup = "{{%" if is_percent else "{{<"

@@ -14,7 +14,7 @@ from ._mdit_plugins.gfm_alerts import enable_gfm_alert_custom_titles
 from ._mdit_plugins.shortcodes import shortcode_plugin
 from ._renderer import render_fence, render_heading, render_hugo_shortcode, render_image
 
-CHANGES_AST: Final = True
+CHANGES_AST: Final[bool] = True
 RENDERERS: Final[Mapping[str, Render]] = {
     "hugo_shortcode": render_hugo_shortcode,
     "heading": render_heading,

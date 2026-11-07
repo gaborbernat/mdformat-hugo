@@ -40,14 +40,12 @@ def test_attrs_on_paragraph() -> None:
 
 
 def test_attrs_with_trailing_whitespace() -> None:
-    start = "## Heading {.class  }\n"
-    outcome = mdformat.text(start, extensions=["hugo"])
+    outcome = mdformat.text("## Heading {.class  }\n", extensions=["hugo"])
     expected = "## Heading {.class}\n"
     assert outcome == expected
 
 
 def test_attrs_invalid_key_without_equals() -> None:
-    start = "## Heading {invalidkey}\n"
-    outcome = mdformat.text(start, extensions=["hugo"])
+    outcome = mdformat.text("## Heading {invalidkey}\n", extensions=["hugo"])
     expected = "## Heading {}\n"
     assert outcome == expected

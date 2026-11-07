@@ -46,22 +46,19 @@ def test_paragraph_with_attrs() -> None:
 
 
 def test_shortcode_in_heading() -> None:
-    start = "## Heading with {{< icon >}} shortcode\n"
-    outcome = mdformat.text(start, extensions=["hugo"])
+    outcome = mdformat.text("## Heading with {{< icon >}} shortcode\n", extensions=["hugo"])
     expected = "## Heading with {{< icon >}} shortcode\n"
     assert outcome == expected
 
 
 def test_multiple_attrs_on_same_line() -> None:
-    start = "## Heading {#id .class1 .class2 data-foo=bar}\n"
-    outcome = mdformat.text(start, extensions=["hugo"])
+    outcome = mdformat.text("## Heading {#id .class1 .class2 data-foo=bar}\n", extensions=["hugo"])
     expected = "## Heading {#id .class1 .class2 data-foo=bar}\n"
     assert outcome == expected
 
 
 def test_image_with_title_and_attrs() -> None:
-    start = '![alt](url "title"){width=300}\n'
-    outcome = mdformat.text(start, extensions=["hugo"])
+    outcome = mdformat.text('![alt](url "title"){width=300}\n', extensions=["hugo"])
     expected = '![alt](url "title"){width=300}\n'
     assert outcome == expected
 
@@ -82,14 +79,12 @@ def test_fence_without_lang() -> None:
 
 
 def test_alert_custom_title_preserved_by_default() -> None:
-    start = "> [!TIP] Upgrade notes\n> Body.\n"
-    outcome = mdformat.text(start, extensions=["hugo", "gfm_alerts"])
+    outcome = mdformat.text("> [!TIP] Upgrade notes\n> Body.\n", extensions=["hugo", "gfm_alerts"])
     assert outcome == "> [!TIP] Upgrade notes\n> Body.\n"
 
 
 def test_alert_custom_title_preserved_regardless_of_extension_order() -> None:
-    start = "> [!TIP] Upgrade notes\n> Body.\n"
-    outcome = mdformat.text(start, extensions=["gfm_alerts", "hugo"])
+    outcome = mdformat.text("> [!TIP] Upgrade notes\n> Body.\n", extensions=["gfm_alerts", "hugo"])
     assert outcome == "> [!TIP] Upgrade notes\n> Body.\n"
 
 

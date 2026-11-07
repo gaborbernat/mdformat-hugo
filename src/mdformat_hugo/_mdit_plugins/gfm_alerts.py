@@ -9,5 +9,10 @@ if TYPE_CHECKING:
 
 
 def enable_gfm_alert_custom_titles(mdit: MarkdownIt) -> None:
-    """Force an inline custom title on `[!TYPE]` alert lines."""
+    # Force an inline custom title on `[!TYPE]` alert lines.
     mdit.options["mdformat"]["custom_title"] = True
+
+
+__all__ = [
+    "enable_gfm_alert_custom_titles",
+]

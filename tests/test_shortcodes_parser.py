@@ -21,8 +21,7 @@ def test_shortcode_edge_cases(text: str) -> None:
 
 
 def test_shortcode_too_short() -> None:
-    start = "{{<\n"
-    outcome = mdformat.text(start, extensions=["hugo"])
+    outcome = mdformat.text("{{<\n", extensions=["hugo"])
     expected = "{{\\<\n"
     assert outcome == expected
 

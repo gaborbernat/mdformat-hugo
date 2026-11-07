@@ -94,21 +94,18 @@ def test_multiple_elements_with_attrs() -> None:
 
 
 def test_attrs_sorted_classes() -> None:
-    start = "## Heading {.zebra .apple .middle}\n"
-    outcome = mdformat.text(start, extensions=["hugo"])
+    outcome = mdformat.text("## Heading {.zebra .apple .middle}\n", extensions=["hugo"])
     expected = "## Heading {.apple .middle .zebra}\n"
     assert outcome == expected
 
 
 def test_attrs_sorted_custom_attrs() -> None:
-    start = "## Heading {zebra=1 apple=2 middle=3}\n"
-    outcome = mdformat.text(start, extensions=["hugo"])
+    outcome = mdformat.text("## Heading {zebra=1 apple=2 middle=3}\n", extensions=["hugo"])
     expected = "## Heading {apple=2 middle=3 zebra=1}\n"
     assert outcome == expected
 
 
 def test_attrs_id_classes_custom_sorted() -> None:
-    start = "## Heading {.zebra #myid zebra=1 .apple alpha=2}\n"
-    outcome = mdformat.text(start, extensions=["hugo"])
+    outcome = mdformat.text("## Heading {.zebra #myid zebra=1 .apple alpha=2}\n", extensions=["hugo"])
     expected = "## Heading {#myid .apple .zebra alpha=2 zebra=1}\n"
     assert outcome == expected
