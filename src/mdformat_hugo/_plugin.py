@@ -10,8 +10,7 @@ if TYPE_CHECKING:
     from markdown_it import MarkdownIt
     from mdformat.renderer.typing import Render
 
-from ._mdit_plugins.gfm_alerts import enable_gfm_alert_custom_titles
-from ._mdit_plugins.shortcodes import shortcode_plugin
+from ._mdit_plugins import enable_gfm_alert_custom_titles, shortcode_plugin
 from ._renderer import render_fence, render_heading, render_hugo_shortcode, render_image
 
 #: The formatting changes the Markdown AST, so mdformat's --validate must skip its AST comparison.
