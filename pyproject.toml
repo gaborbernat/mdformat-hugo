@@ -54,7 +54,6 @@ dependencies = [
   "mdformat-ruff>=0.1.3",
   "mdformat-shfmt>=0.2",
   "mdformat-web>=0.2",
-  "mdit-py-plugins>=0.6.1",
 ]
 urls.Changelog = "https://github.com/gaborbernat/mdformat-hugo/blob/main/CHANGELOG.md"
 urls.Homepage = "https://github.com/gaborbernat/mdformat-hugo"
