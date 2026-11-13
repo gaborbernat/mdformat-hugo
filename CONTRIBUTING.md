@@ -148,8 +148,8 @@ mdformat-hugo/
 │   ├── __init__.py           # Entry point with version
 │   ├── _plugin.py            # Plugin interface implementation
 │   ├── _renderer.py          # Render functions
-│   └── _mdit_plugins/        # Custom markdown-it-py plugins
-│       ├── attrs.py          # Attribute parser (placeholder)
+│   └── _mdit_plugins/        # Markdown parser extensions
+│       ├── gfm_alerts.py     # Hugo alert titles
 │       └── shortcodes.py     # Shortcode preservation
 ├── tests/                    # Test files
 ├── pyproject.toml           # Project configuration
