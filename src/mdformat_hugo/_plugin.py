@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+__lazy_modules__ = [
+    f"{__spec__.parent}._mdit_plugins",  # ty: ignore[missing-union-attribute]  # imported modules have a spec
+]
+
 from typing import TYPE_CHECKING, Final
 
 if TYPE_CHECKING:
